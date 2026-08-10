@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Category: <%= category.category %></title>
+  </head>
+  <body>
+    <%- includes('/components/navbar.ejs') %>
+    <h2>All Categories:</h2>
+    <div>
+      <h2>Category: <%= category.category %></h2>
+      <!-- Add quantity of items in this category  --><span>
+        Items: <%= %>
+      </span>
+
+      <div>
+        <% category.items.map((item) => { %>
+          <div>
+            <span> <%= item.model %> </span>
+            <span> <%= item.category %> </span>
+            <span> <%= item.producer %> </span>
+            <span> <%= item.quantity %> </span>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </body>
+</html>
