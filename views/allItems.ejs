@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Items</title>
+  </head>
+  <body>
+    <%- includes('/components/navbar.ejs') %>
+    <div>
+      <h2>All items:</h2>
+        <div>
+          <% allItems.map((item) => { %>
+            <div>
+              <span> <%= item.model %> </span>
+              <span> <%= item.category %> </span>
+              <span> <%= item.producer %> </span>
+              <span> <%= item.quantity %> </span>
+            </div>
+          <% }) %>
+        </div>
+    </div>
+
+  </body>
+</html>

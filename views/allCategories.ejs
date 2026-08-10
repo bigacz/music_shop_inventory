@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Categories</title>
+  </head>
+  <body>
+    <%- includes('/components/navbar.ejs') %>
+    <h2>All Categories:</h2>
+      <div>
+        <% allCategories.map((category) => {
+            <div>
+              <span> <%= category.category %> </span>
+
+              <!-- Add quantity of items in this category  --><span> Items: <%=   %> </span>
+            </div>
+        })
+      </div>
+  </body>
+</html>
