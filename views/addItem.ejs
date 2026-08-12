@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add new item</title>
+  </head>
+  <body>
+    <%- includes('/components/navbar.ejs') %>
+    <h2>Add an item:</h2>
+    <form action="/items" method="POST">
+      <input type="text" name="model" id="model" />
+      <input type="text" name="category" id="category" />
+      <input type="text" name="producer" id="producer" />
+      <input type="number" name="quantity" id="quantity" />
+      <button type="submit">Add</button>
+    </form>
+  </body>
+</html>
