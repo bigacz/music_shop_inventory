@@ -10,11 +10,17 @@
     <div>
       <h2>All items:</h2>
         <div>
+            <div>
+              <span>Category</span>
+              <span>Producer</span>
+              <span>Model</span>
+              <span>Quantity</span>
+            </div>
           <% allItems.map((item) => { %>
             <div>
-              <span> <%= item.model %> </span>
               <span> <%= item.category %> </span>
-              <span> <%= item.producer %> </span>
+              <span> <%= item.producer_name %> </span>
+              <span> <%= item.model %> </span>
               <span> <%= item.quantity %> </span>
             </div>
           <% }) %>

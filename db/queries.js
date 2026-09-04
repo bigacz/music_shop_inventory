@@ -1,3 +1,15 @@
-import db from "./pool.js";
+import pool from "./pool.js";
 
-function getAllItems() {}
+async function getAllItems() {
+  const query = await pool.query(
+    `SELECT * FROM items 
+    INNER JOIN producers ON items.producer_id=producers.producer_id 
+    INNER JOIN categories ON items.category_id=categories.category_id;`,
+  );
+
+  return query.rows;
+}
+
+export default {
+  getAllItems,
+};

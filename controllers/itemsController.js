@@ -1,5 +1,9 @@
-const getItems = (req, res) => {
-  res.render("allItems", { allItems: [] });
+import db from "../db/queries.js";
+
+const getItems = async (req, res) => {
+  const items = await db.getAllItems();
+
+  res.render("allItems", { allItems: items });
 };
 
 const postItems = (req, res) => {
