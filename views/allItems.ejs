@@ -4,27 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>All Items</title>
+    <link rel="stylesheet" href="style/allItems.css">
   </head>
   <body>
     <%- include('components/navbar.ejs') %>
     <div>
       <h2>All items:</h2>
-        <div>
-            <div>
-              <span>Category</span>
-              <span>Producer</span>
-              <span>Model</span>
-              <span>Quantity</span>
-            </div>
-          <% allItems.map((item) => { %>
-            <div>
-              <span> <%= item.category %> </span>
-              <span> <%= item.producer_name %> </span>
-              <span> <%= item.model %> </span>
-              <span> <%= item.quantity %> </span>
-            </div>
-          <% }) %>
-        </div>
+        <table>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Producer</th>
+                <th>Model</th>
+                <th>Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% allItems.map((item) => { %>
+                <tr>
+                  <td> <%= item.category %> </td>
+                  <td> <%= item.producer_name %> </td>
+                  <td> <%= item.model %> </td>
+                  <td> <%= item.quantity %> </td>
+                </tr>
+              <% }) %>
+            </tbody>
+        </table>
     </div>
 
   </body>

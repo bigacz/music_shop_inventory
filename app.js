@@ -3,6 +3,8 @@ import itemsRouter from "./routes/itemsRouter.js";
 
 const app = express();
 
+app.use(express.static("public"));
+
 app.set("view engine", "ejs");
 app.set("views", `${process.cwd()}/views`);
 
