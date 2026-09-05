@@ -6,13 +6,26 @@
     <title>Add new item</title>
   </head>
   <body>
-    <%- includes('/components/navbar.ejs') %>
+    <%- include('components/navbar.ejs') %>
     <h2>Add an item:</h2>
     <form action="/items" method="POST">
+      <label for="model">Model:</label>
       <input type="text" name="model" id="model" />
+
+      <label for="category">Category:</label>
       <input type="text" name="category" id="category" />
-      <input type="text" name="producer" id="producer" />
+
+      <label for="producer">Producer:</label>
+      <input type="text" name="producer" id="producer" list="producers_datalist" />
+      <datalist id="producers_datalist">
+        <% producers.map((producer) => { %>
+          <option value="<%= producer.producer_name %>"/>
+        <% }) %>
+      </datalist>
+
+      <label for="quantity">Quantity:</label>
       <input type="number" name="quantity" id="quantity" />
+
       <button type="submit">Add</button>
     </form>
   </body>

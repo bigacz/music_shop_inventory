@@ -10,6 +10,13 @@ async function getAllItems() {
   return query.rows;
 }
 
+async function getAllProducers() {
+  const query = await pool.query(`SELECT * FROM producers;`);
+
+  return query.rows;
+}
+
 export default {
   getAllItems,
+  getAllProducers,
 };
