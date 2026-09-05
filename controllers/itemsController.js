@@ -20,8 +20,9 @@ const deleteItemsId = (req, res) => {
 
 const getItemsNew = async (req, res) => {
   const producers = await db.getAllProducers();
+  const categories = await db.getAllCategories();
 
-  res.render("addItem", { producers: producers });
+  res.render("addItem", { producers: producers, categories: categories });
 };
 
 export default {

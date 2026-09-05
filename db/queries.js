@@ -16,7 +16,13 @@ async function getAllProducers() {
   return query.rows;
 }
 
+async function getAllCategories() {
+  const query = await pool.query(`SELECT * FROM categories;`);
+
+  return query.rows;
+}
 export default {
   getAllItems,
   getAllProducers,
+  getAllCategories,
 };
