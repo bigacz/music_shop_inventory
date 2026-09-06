@@ -1,3 +1,4 @@
+import { body, matchedData, validationResult } from "express-validator";
 import db from "../db/queries.js";
 
 const getItems = async (req, res) => {
@@ -6,9 +7,26 @@ const getItems = async (req, res) => {
   res.render("allItems", { allItems: items });
 };
 
-const postItems = (req, res) => {
-  // TODO
-};
+const postItems = [
+  body("model").notEmpty().trim().escape(),
+  body("category").notEmpty().trim().escape(),
+  body("producer").notEmpty().trim().escape(),
+  body("quantity").notEmpty().trim().isInt({ min: 0 }).escape(),
+  async (req, res) => {
+    const result = validationResult(req);
+
+    if (!result.isEmpty()) {
+      return res.send({ errors: result.array() });
+    }
+
+    const { model, category, producer, quantity } = matchedData(req);
+
+    const categoryId = (await db.getCategoryByName(category))[0].category_id;
+    const producerId = (await db.getProducerByName(producer))[0].producer_id;
+
+    await db.addItem(model, categoryId, producerId, quantity);
+  },
+];
 
 const getItemsId = (req, res) => {
   res.render("item", { item: {} });

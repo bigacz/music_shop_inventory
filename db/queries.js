@@ -21,8 +21,39 @@ async function getAllCategories() {
 
   return query.rows;
 }
+
+async function addItem(model, category_id, producer_id, quantity) {
+  const query = await pool.query(
+    "INSERT INTO items(model, category_id, producer_id, quantity) VALUES($1, $2, $3, $4)",
+    [model, category_id, producer_id, quantity],
+  );
+}
+
+async function getCategoryByName(categoryName) {
+  const query = await pool.query(
+    "SELECT * FROM categories WHERE category=$1;",
+    [categoryName],
+  );
+
+  return query.rows;
+}
+
+async function getProducerByName(producerName) {
+  const query = await pool.query(
+    "SELECT * FROM producers WHERE producer_name=$1;",
+    [producerName],
+  );
+
+  return query.rows;
+}
+
 export default {
   getAllItems,
   getAllProducers,
   getAllCategories,
+
+  addItem,
+
+  getCategoryByName,
+  getProducerByName,
 };
