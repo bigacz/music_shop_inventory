@@ -6,16 +6,14 @@
     <title>All Categories</title>
   </head>
   <body>
-    <%- includes('/components/navbar.ejs') %>
+    <%- include('components/navbar.ejs') %>
     <h2>All Categories:</h2>
       <div>
-        <% allCategories.map((category) => {
+        <% categories.map((category) => { %>
             <div>
-              <span> <%= category.category %> </span>
-
-              <!-- Add quantity of items in this category  --><span> Items: <%=   %> </span>
+              <span> <a href="categories/<%= category.category_id %>"> <%= category.category %></a> </span>
             </div>
-        })
+        <% }) %>
       </div>
   </body>
 </html>

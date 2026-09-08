@@ -1,5 +1,6 @@
 import express from "express";
 import itemsRouter from "./routes/itemsRouter.js";
+import categoriesRouter from "./routes/categoriesRouter.js";
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.set("views", `${process.cwd()}/views`);
 app.use(express.urlencoded());
 
 app.use("/items", itemsRouter);
+app.use("/categories", categoriesRouter);
 
 const PORT = process.env.PORT || 3000;
 
