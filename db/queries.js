@@ -50,6 +50,18 @@ async function getAllItemsByCategoryId(categoryId) {
   return query.rows;
 }
 
+async function getAllItemsByProducerId(producerId) {
+  const query = await pool.query(
+    `SELECT * FROM items 
+    INNER JOIN producers ON items.producer_id=producers.producer_id 
+    INNER JOIN categories ON items.category_id=categories.category_id 
+    WHERE items.producer_id=$1;`,
+    [producerId],
+  );
+
+  return query.rows;
+}
+
 async function getProducerByName(producerName) {
   const query = await pool.query(
     "SELECT * FROM producers WHERE producer_name=$1;",
@@ -70,4 +82,5 @@ export default {
   getProducerByName,
 
   getAllItemsByCategoryId,
+  getAllItemsByProducerId,
 };

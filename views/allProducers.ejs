@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All producers</title>
+  </head>
+  <body>
+    <%- include('components/navbar.ejs') %>
+    <div>
+      <h2>All producers:</h2>
+        <table>
+            <thead>
+              <tr>
+                <th>Producer</th>
+                <th>Location</th>
+                <th>Contact</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% producers.map((producer) => { %>
+                <tr>
+                  <td> <a href="producers/<%= producer.producer_id %>"><%= producer.producer_name %></a> </td>
+                  <td> <%= producer.location %> </td>
+                  <td> <%= producer.email %> </td>
+                </tr>
+              <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+  </body>
+</html>

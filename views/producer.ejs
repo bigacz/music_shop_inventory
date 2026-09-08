@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Producer: <%= items[0].producer_name %></title>
+  </head>
+  <body>
+    <%- include('components/navbar.ejs') %>
+    <div>
+      <h2>Producer: <%= items[0].producer_name %></h2>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Category</th>
+            <th>Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% items.map((item) => { %>
+            <tr>
+              <td> <%= item.model %> </td> 
+              <td> <%= item.category %> </td>
+              <td> <%= item.quantity %> </td>
+            </tr>
+        </tbody>
+            <% }) %>
+      </table>
+      <span>Results: <%= items.length %>  </span>
+    </div>
+  </body>
+</html>
