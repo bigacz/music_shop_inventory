@@ -25,6 +25,8 @@ const postItems = [
     const producerId = (await db.getProducerByName(producer))[0].producer_id;
 
     await db.addItem(model, categoryId, producerId, quantity);
+
+    res.redirect("items");
   },
 ];
 
