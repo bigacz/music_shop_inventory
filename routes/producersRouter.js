@@ -5,7 +5,7 @@ const producersRouter = Router();
 
 producersRouter.get("/", producersController.getAllProducers);
 
-// producersRouter.post("/", producersController.postProducers);
+producersRouter.post("/", producersController.postProducer);
 
 producersRouter.get("/new", producersController.getProducerNew);
 producersRouter.get("/:id", producersController.getProducer);
