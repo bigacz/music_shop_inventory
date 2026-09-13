@@ -15,10 +15,30 @@ const getCategory = async (req, res) => {
   res.render("category", { items });
 };
 
-const postCategories = async (req, res) => {};
+const getCategoryNew = async (req, res) => {
+  res.render("addCategory");
+};
+
+const postCategories = [
+  body("categoryName").notEmpty().trim().escape(),
+  async (req, res) => {
+    const result = validationResult(req);
+
+    if (!result.isEmpty()) {
+      return { errors: result.array() };
+    }
+
+    const { categoryName } = matchedData(req);
+
+    await db.addCategory(categoryName);
+
+    res.redirect("categories");
+  },
+];
 
 export default {
   getAllCategories,
   getCategory,
   postCategories,
+  getCategoryNew,
 };

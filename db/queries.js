@@ -36,6 +36,12 @@ async function addProducer(producer, location, email) {
   );
 }
 
+async function addCategory(categoryName) {
+  await pool.query("INSERT INTO categories(category) VALUES($1)", [
+    categoryName,
+  ]);
+}
+
 async function getCategoryByName(categoryName) {
   const query = await pool.query(
     "SELECT * FROM categories WHERE category=$1;",
@@ -94,6 +100,7 @@ export default {
 
   addItem,
   addProducer,
+  addCategory,
 
   getCategoryByName,
   getProducerByName,

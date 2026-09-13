@@ -4,10 +4,9 @@ import categoriesController from "../controllers/categoriesController.js";
 const categoriesRouter = Router();
 
 categoriesRouter.get("/", categoriesController.getAllCategories);
+categoriesRouter.get("/new", categoriesController.getCategoryNew);
 categoriesRouter.get("/:id", categoriesController.getCategory);
 
-// categoriesRouter.post("/", categoriesController.postCategories);
-
-// categoriesRouter.get("/new", categoriesController.getCategoriesNew);
+categoriesRouter.post("/", categoriesController.postCategories);
 
 export default categoriesRouter;
