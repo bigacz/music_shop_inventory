@@ -13,18 +13,18 @@
         <table>
             <thead>
               <tr>
-                <th>Category</th>
-                <th>Producer</th>
                 <th>Model</th>
+                <th>Producer</th>
+                <th>Category</th>
                 <th>Quantity</th>
               </tr>
             </thead>
             <tbody>
               <% allItems.map((item) => { %>
                 <tr>
-                  <td> <%= item.category %> </td>
-                  <td> <%= item.producer_name %> </td>
-                  <td> <%= item.model %> </td>
+                  <td> <a href="/items/<%= item.item_id%>"><%= item.model %></a> </td>
+                  <td> <a href="/producers/<%= item.producer_id%>"><%= item.producer_name %></a> </td>
+                  <td> <a href="/categories/<%= item.category_id%>"><%= item.category %></a> </td>
                   <td> <%= item.quantity %> </td>
                 </tr>
               <% }) %>
