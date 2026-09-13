@@ -1,4 +1,4 @@
-import { body, matchedData, validationResult } from "express-validator";
+import { body, matchedData, param, validationResult } from "express-validator";
 import db from "../db/queries.js";
 
 const getItems = async (req, res) => {
@@ -30,10 +30,6 @@ const postItems = [
   },
 ];
 
-const getItemsId = (req, res) => {
-  res.render("item", { item: {} });
-};
-
 const deleteItemsId = (req, res) => {
   // TODO
 };
@@ -45,11 +41,26 @@ const getItemsNew = async (req, res) => {
   res.render("addItem", { producers: producers, categories: categories });
 };
 
+const getItem = [
+  param("itemId").notEmpty().trim().isInt().escape(),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.send(errors.array());
+    }
+    const { itemId } = matchedData(req);
+
+    const items = await db.getItemById(itemId);
+
+    res.render("item", { item: items[0] });
+  },
+];
+
 export default {
   getItems,
   postItems,
 
-  getItemsId,
+  getItem,
   deleteItemsId,
 
   getItemsNew,

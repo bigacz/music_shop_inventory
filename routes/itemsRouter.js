@@ -7,5 +7,6 @@ itemsRouter.get("/", itemsController.getItems);
 itemsRouter.post("/", itemsController.postItems);
 
 itemsRouter.get("/new", itemsController.getItemsNew);
+itemsRouter.get("/:itemId", itemsController.getItem);
 
 export default itemsRouter;

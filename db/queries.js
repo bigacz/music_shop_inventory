@@ -22,6 +22,18 @@ async function getAllCategories() {
   return query.rows;
 }
 
+async function getItemById(itemId) {
+  const query = await pool.query(
+    `SELECT * FROM items 
+    INNER JOIN producers ON items.producer_id=producers.producer_id 
+    INNER JOIN categories ON items.category_id=categories.category_id 
+    WHERE item_id=$1 `,
+    [itemId],
+  );
+
+  return query.rows;
+}
+
 async function addItem(model, category_id, producer_id, quantity) {
   const query = await pool.query(
     "INSERT INTO items(model, category_id, producer_id, quantity) VALUES($1, $2, $3, $4)",
@@ -105,6 +117,7 @@ export default {
   getCategoryByName,
   getProducerByName,
 
+  getItemById,
   getProducerById,
 
   getAllItemsByCategoryId,
