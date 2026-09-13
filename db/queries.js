@@ -78,6 +78,15 @@ async function getProducerByName(producerName) {
   return query.rows;
 }
 
+async function getProducerById(producerId) {
+  const query = await pool.query(
+    "SELECT * FROM producers WHERE producer_id=$1;",
+    [producerId],
+  );
+
+  return query.rows;
+}
+
 export default {
   getAllItems,
   getAllProducers,
@@ -88,6 +97,8 @@ export default {
 
   getCategoryByName,
   getProducerByName,
+
+  getProducerById,
 
   getAllItemsByCategoryId,
   getAllItemsByProducerId,

@@ -11,8 +11,9 @@ const getProducer = async (req, res) => {
   const producerId = req.params.id;
 
   const items = await db.getAllItemsByProducerId(producerId);
+  const producerInfo = (await db.getProducerById(producerId))[0];
 
-  res.render("producer/producer", { items });
+  res.render("producer/producer", { items, producerInfo });
 };
 
 const getProducerNew = async (req, res) => {
