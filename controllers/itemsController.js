@@ -30,9 +30,28 @@ const postItems = [
   },
 ];
 
-const deleteItemsId = (req, res) => {
-  // TODO
-};
+const deleteItem = [
+  param("itemId")
+    .notEmpty()
+    .withMessage("Field cant be empty")
+    .trim()
+    .isInt()
+    .withMessage("Field must be an integer")
+    .escape(),
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.send({ errors: errors.array() });
+    }
+
+    const { itemId } = matchedData(req);
+
+    await db.deleteItemById(itemId);
+
+    res.redirect("items");
+  },
+];
 
 const getItemsNew = async (req, res) => {
   const producers = await db.getAllProducers();
@@ -61,7 +80,7 @@ export default {
   postItems,
 
   getItem,
-  deleteItemsId,
+  deleteItem,
 
   getItemsNew,
 };

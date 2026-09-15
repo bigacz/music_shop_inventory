@@ -1,36 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>All Items</title>
-    <link rel="stylesheet" href="style/allItems.css">
-  </head>
-  <body>
-    <%- include('components/navbar.ejs') %>
-    <div>
-      <h2>All items:</h2>
-        <table>
-            <thead>
-              <tr>
-                <th>Model</th>
-                <th>Producer</th>
-                <th>Category</th>
-                <th>Quantity</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% allItems.map((item) => { %>
-                <tr>
-                  <td> <a href="/items/<%= item.item_id%>"><%= item.model %></a> </td>
-                  <td> <a href="/producers/<%= item.producer_id%>"><%= item.producer_name %></a> </td>
-                  <td> <a href="/categories/<%= item.category_id%>"><%= item.category %></a> </td>
-                  <td> <%= item.quantity %> </td>
-                </tr>
-              <% }) %>
-            </tbody>
-        </table>
-    </div>
 
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All Items</title>
+  <link rel="stylesheet" href="style/allItems.css">
+</head>
+
+<body>
+  <%- include('components/navbar.ejs') %>
+  <div>
+    <h2>All items:</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Producer</th>
+          <th>Category</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% allItems.map((item) => { %>
+        <tr>
+          <td> <a href="/items/<%= item.item_id%>"><%= item.model %></a> </td>
+          <td> <a href="/producers/<%= item.producer_id%>"><%= item.producer_name %></a> </td>
+          <td> <a href="/categories/<%= item.category_id%>"><%= item.category %></a> </td>
+          <td> <%= item.quantity %> </td>
+          <td>
+            <button onclick="(async () => {
+                await fetch(`/items/<%= item.item_id%>`, {
+                  method: 'DELETE',
+                })
+                
+                window.location.pathname = '/items'
+              })()">
+              DELETE
+            </button>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+
 </html>

@@ -105,6 +105,10 @@ async function getProducerById(producerId) {
   return query.rows;
 }
 
+async function deleteItemById(itemId) {
+  await pool.query("DELETE FROM items WHERE item_id=$1", [itemId]);
+}
+
 export default {
   getAllItems,
   getAllProducers,
@@ -119,6 +123,8 @@ export default {
 
   getItemById,
   getProducerById,
+
+  deleteItemById,
 
   getAllItemsByCategoryId,
   getAllItemsByProducerId,
