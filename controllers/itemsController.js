@@ -4,7 +4,7 @@ import db from "../db/queries.js";
 const getItems = async (req, res) => {
   const items = await db.getAllItems();
 
-  res.render("allItems", { allItems: items });
+  res.render("item/allItems", { allItems: items });
 };
 
 const postItems = [
@@ -57,7 +57,7 @@ const getItemsNew = async (req, res) => {
   const producers = await db.getAllProducers();
   const categories = await db.getAllCategories();
 
-  res.render("addItem", { producers: producers, categories: categories });
+  res.render("item/addItem", { producers: producers, categories: categories });
 };
 
 const getItem = [
@@ -71,7 +71,7 @@ const getItem = [
 
     const items = await db.getItemById(itemId);
 
-    res.render("item", { item: items[0] });
+    res.render("item/item", { item: items[0] });
   },
 ];
 
