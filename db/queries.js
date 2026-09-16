@@ -114,6 +114,11 @@ async function deleteCategoryById(categoryId) {
   await pool.query("DELETE FROM categories WHERE category_id=$1", [categoryId]);
 }
 
+async function deleteProducerById(producerId) {
+  await pool.query("DELETE FROM items WHERE producer_id=$1", [producerId]);
+  await pool.query("DELETE FROM producers WHERE producer_id=$1", [producerId]);
+}
+
 export default {
   getAllItems,
   getAllProducers,
@@ -131,6 +136,7 @@ export default {
 
   deleteItemById,
   deleteCategoryById,
+  deleteProducerById,
 
   getAllItemsByCategoryId,
   getAllItemsByProducerId,
