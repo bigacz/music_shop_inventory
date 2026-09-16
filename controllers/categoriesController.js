@@ -4,7 +4,7 @@ import db from "../db/queries.js";
 const getAllCategories = async (req, res) => {
   const categories = await db.getAllCategories();
 
-  return res.render("allCategories", { categories });
+  return res.render("category/allCategories", { categories });
 };
 
 const getCategory = async (req, res) => {
@@ -12,11 +12,11 @@ const getCategory = async (req, res) => {
 
   const items = await db.getAllItemsByCategoryId(categoryId);
 
-  res.render("category", { items });
+  res.render("category/category", { items });
 };
 
 const getCategoryNew = async (req, res) => {
-  res.render("addCategory");
+  res.render("category/addCategory");
 };
 
 const postCategories = [
