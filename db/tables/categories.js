@@ -9,6 +9,15 @@ async function getCategoryByName(categoryName) {
   return query.rows;
 }
 
+async function getCategoryById(categoryId) {
+  const query = await pool.query(
+    "SELECT * FROM categories WHERE category=$1;",
+    [categoryId],
+  );
+
+  return query.rows;
+}
+
 async function getAllCategories() {
   const query = await pool.query(`SELECT * FROM categories;`);
 
@@ -28,6 +37,7 @@ async function deleteCategoryById(categoryId) {
 
 export default {
   getCategoryByName,
+  getCategoryById,
   getAllCategories,
 
   addCategory,

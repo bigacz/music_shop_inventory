@@ -4,14 +4,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Category: <%= items[0].category %></title>
+  <title>Category: <%= category.category %></title>
 </head>
 
 <body>
   <%- include('../components/navbar.ejs') %>
   <div>
-    <h2>Category: <%= items[0].category %></h2>
-
+    <h2>Category: <%= category.category %></h2>
+    <% if(items.length > 0) { %>
     <table>
       <thead>
         <tr>
@@ -27,10 +27,13 @@
           <td> <%= item.producer_name %> </td>
           <td> <%= item.quantity %> </td>
         </tr>
+        <% }) %>
       </tbody>
-      <% }) %>
     </table>
     <span>Results: <%= items.length %> </span>
+    <% }  else { %>
+    <p>No items in this category</p>
+    <% } %>
   </div>
 </body>
 

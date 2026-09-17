@@ -22,8 +22,9 @@ const getCategory = [
     const { categoryId } = matchedData(req);
 
     const items = await db.getAllItemsByCategoryId(categoryId);
+    const category = await db.getCategoryById(categoryId);
 
-    res.render("category/category", { items });
+    res.render("category/category", { items, category });
   },
 ];
 
