@@ -29,6 +29,17 @@
             <a href="/categories/<%= item.category_id%>"><%= item.category %></a>
           </td>
           <td><%= item.quantity %></td>
+          <td>
+            <button onclick="(async () => {
+                await fetch(`/items/<%= item.item_id%>`, {
+                  method: 'DELETE',
+                })
+                
+                window.location.pathname = '/items'
+              })()">
+              DELETE
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
