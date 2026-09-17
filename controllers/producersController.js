@@ -1,19 +1,37 @@
 import { body, matchedData, param, validationResult } from "express-validator";
 import db from "../db/queries.js";
 
+const getProducer = [
+  param("producerId")
+    .notEmpty()
+    .withMessage("Field cant be empty")
+    .trim()
+    .isInt()
+    .withMessage("Field must be an integer")
+    .escape(),
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.status(400);
+      res.set("content-type", "application/json");
+
+      return res.json({ errors: errors.array() });
+    }
+
+    const { producerId } = matchedData(req);
+
+    const items = await db.getAllItemsByProducerId(producerId);
+    const producerInfo = (await db.getProducerById(producerId))[0];
+
+    res.render("producer/producer", { items, producerInfo });
+  },
+];
+
 const getAllProducers = async (req, res) => {
   const producers = await db.getAllProducers();
 
   return res.render("producer/allProducers", { producers });
-};
-
-const getProducer = async (req, res) => {
-  const producerId = req.params.id;
-
-  const items = await db.getAllItemsByProducerId(producerId);
-  const producerInfo = (await db.getProducerById(producerId))[0];
-
-  res.render("producer/producer", { items, producerInfo });
 };
 
 const getProducerNew = async (req, res) => {
@@ -66,9 +84,11 @@ const deleteProducer = [
 ];
 
 export default {
-  getAllProducers,
   getProducer,
-  postProducer,
+  getAllProducers,
   getProducerNew,
+
+  postProducer,
+
   deleteProducer,
 };
