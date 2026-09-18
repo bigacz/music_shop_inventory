@@ -76,10 +76,34 @@ const deleteItem = [
 ];
 
 const patchItem = [
-  param("itemId").escape(),
-  body("newModel").escape(),
-  body("newCategoryId").escape(),
-  body("newProducerId").escape(),
+  param("itemId")
+    .notEmpty()
+    .withMessage("Field can't be empty")
+    .trim()
+    .isInt()
+    .withMessage("Field must be an integer")
+    .escape(),
+  body("newModel")
+    .notEmpty()
+    .withMessage("Field can't be empty")
+    .trim()
+    .isAlpha()
+    .withMessage("Field must be alphanumeric")
+    .escape(),
+  body("newCategoryId")
+    .notEmpty()
+    .withMessage("Field can't be empty")
+    .trim()
+    .isInt()
+    .withMessage("Field must be an integer")
+    .escape(),
+  body("newProducerId")
+    .notEmpty()
+    .withMessage("Field can't be empty")
+    .trim()
+    .isInt()
+    .withMessage("Field must be an integer")
+    .escape(),
   body("newQuantity").escape(),
   async (req, res) => {
     const errors = validationResult(req);
