@@ -1,10 +1,32 @@
 import { body, matchedData, param, validationResult } from "express-validator";
 import db from "../db/queries.js";
 
+const getItem = [
+  param("itemId").notEmpty().trim().isInt().escape(),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.send(errors.array());
+    }
+    const { itemId } = matchedData(req);
+
+    const items = await db.getItemById(itemId);
+
+    res.render("item/item", { item: items[0] });
+  },
+];
+
 const getItems = async (req, res) => {
   const items = await db.getAllItems();
 
   res.render("item/allItems", { allItems: items });
+};
+
+const getItemsNew = async (req, res) => {
+  const producers = await db.getAllProducers();
+  const categories = await db.getAllCategories();
+
+  res.render("item/addItem", { producers: producers, categories: categories });
 };
 
 const postItems = [
@@ -53,34 +75,46 @@ const deleteItem = [
   },
 ];
 
-const getItemsNew = async (req, res) => {
-  const producers = await db.getAllProducers();
-  const categories = await db.getAllCategories();
-
-  res.render("item/addItem", { producers: producers, categories: categories });
-};
-
-const getItem = [
-  param("itemId").notEmpty().trim().isInt().escape(),
+const patchItem = [
+  param("itemId").escape(),
+  body("newModel").escape(),
+  body("newCategoryId").escape(),
+  body("newProducerId").escape(),
+  body("newQuantity").escape(),
   async (req, res) => {
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
-      return res.send(errors.array());
+      return res.status(400).send(errors.array());
     }
-    const { itemId } = matchedData(req);
 
-    const items = await db.getItemById(itemId);
+    const { itemId, newModel, newCategoryId, newProducerId, newQuantity } =
+      matchedData(req);
+    try {
+      await db.updateItemById(
+        itemId,
+        newModel,
+        newCategoryId,
+        newProducerId,
+        newQuantity,
+      );
+    } catch (error) {
+      res.status(500).send("Internal server error");
+      console.error(error);
+    }
 
-    res.render("item/item", { item: items[0] });
+    res.status(200).send();
   },
 ];
 
 export default {
   getItems,
+  getItem,
+  getItemsNew,
+
   postItems,
 
-  getItem,
   deleteItem,
 
-  getItemsNew,
+  patchItem,
 };

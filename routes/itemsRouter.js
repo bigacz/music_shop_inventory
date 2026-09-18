@@ -10,4 +10,6 @@ itemsRouter.get("/new", itemsController.getItemsNew);
 itemsRouter.delete("/:itemId", itemsController.deleteItem);
 itemsRouter.get("/:itemId", itemsController.getItem);
 
+itemsRouter.patch("/:itemId", itemsController.patchItem);
+
 export default itemsRouter;

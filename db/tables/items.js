@@ -57,6 +57,20 @@ async function deleteItemById(itemId) {
   await pool.query("DELETE FROM items WHERE item_id=$1", [itemId]);
 }
 
+async function updateItemById(
+  itemId,
+  newModel,
+  newCategoryId,
+  newProducerId,
+  newQuantity,
+) {
+  await pool.query(
+    `UPDATE items SET model=$1, category_id=$2, producer_id=$3, quantity=$4 
+    WHERE item_id=$5;`,
+    [newModel, newCategoryId, newProducerId, newQuantity, itemId],
+  );
+}
+
 export default {
   getItemById,
   getAllItems,
@@ -66,4 +80,6 @@ export default {
   addItem,
 
   deleteItemById,
+
+  updateItemById,
 };
