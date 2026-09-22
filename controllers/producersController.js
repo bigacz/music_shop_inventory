@@ -28,6 +28,32 @@ const getProducer = [
   },
 ];
 
+const getProducerEdit = [
+  param("producerId")
+    .notEmpty()
+    .withMessage("Field cant be empty")
+    .trim()
+    .isInt()
+    .withMessage("Field must be an integer")
+    .escape(),
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.status(400);
+      res.set("content-type", "application/json");
+
+      return res.json({ errors: errors.array() });
+    }
+
+    const { producerId } = matchedData(req);
+
+    const producerInfo = (await db.getProducerById(producerId))[0];
+
+    res.render("producer/editProducer", { producerInfo });
+  },
+];
+
 const getAllProducers = async (req, res) => {
   const producers = await db.getAllProducers();
 
@@ -85,6 +111,7 @@ const deleteProducer = [
 
 export default {
   getProducer,
+  getProducerEdit,
   getAllProducers,
   getProducerNew,
 

@@ -10,5 +10,6 @@ producersRouter.post("/", producersController.postProducer);
 producersRouter.get("/new", producersController.getProducerNew);
 producersRouter.delete("/:producerId", producersController.deleteProducer);
 producersRouter.get("/:producerId", producersController.getProducer);
+producersRouter.get("/:producerId/edit", producersController.getProducerEdit);
 
 export default producersRouter;

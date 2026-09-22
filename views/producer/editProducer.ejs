@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit <%= `Edit ${producerInfo.producer_name}` %></title>
+</head>
+
+<body>
+  <%- include('../components/navbar.ejs') %>
+  <div>
+    <form id="editForm" action="/" method="POST">
+      <label for="newProducer">Producer:</label>
+      <input type="text" name="newProducer" id="newProducer" value="<%= producerInfo.producer_name%>" />
+
+      <label for="newEmail">E-mail:</label>
+      <input type="text" name="newEmail" id="newEmail" value="<%= producerInfo.email%>" />
+
+      <label for="newLocation">Location:</label>
+      <input type="text" name="newLocation" id="newLocation" value="<%= producerInfo.location %>" />
+
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</body>
+<script>
+  const form = document.getElementById('editForm');
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch('/producers/<%=producerInfo.producer_id%>', {
+        method: 'PATCH',
+        body: new URLSearchParams(new FormData(event.target)),
+      })
+
+      if (!response.ok) {
+        throw response
+      }
+
+      window.location.pathname = 'producers/8'
+    } catch (error) {
+      console.log(error);
+    }
+  })
+</script>
+
+</html>

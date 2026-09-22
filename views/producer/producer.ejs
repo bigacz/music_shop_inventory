@@ -13,6 +13,8 @@
     <h2>Producer: <%= producerInfo.producer_name %></h2>
     <p>Location: <%= producerInfo.location %></p>
     <p>Email: <%= producerInfo.email %></p>
+    <button><a href="./<%=producerInfo.producer_id%>/edit">Edit</a></button>
+
     <% if(items.length > 0) { %>
     <table>
       <thead>
