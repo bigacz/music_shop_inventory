@@ -16,6 +16,10 @@ app.use("/items", itemsRouter);
 app.use("/categories", categoriesRouter);
 app.use("/producers", producersRouter);
 
+app.all("{*ok}", (req, res) => {
+  res.status(404).render("notFound");
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, (error) => {
