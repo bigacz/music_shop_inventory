@@ -56,7 +56,7 @@
         throw response
       }
 
-      window.location.pathname = 'items/8'
+      window.location.pathname = 'items/<%= item.item_id%>'
     } catch (error) {
       console.log(error);
     }
