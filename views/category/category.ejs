@@ -11,6 +11,8 @@
   <%- include('../components/navbar.ejs') %>
   <div>
     <h2>Category: <%= category.category %></h2>
+    <a href="/categories/<%=category.category_id%>/edit">Edit</a>
+
     <% if(items.length > 0) { %>
     <table>
       <thead>

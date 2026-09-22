@@ -12,4 +12,6 @@ categoriesRouter.get("/", categoriesController.getAllCategories);
 
 categoriesRouter.post("/", categoriesController.postCategories);
 
+categoriesRouter.get("/:categoryId/edit", categoriesController.getCategoryEdit);
+
 export default categoriesRouter;
