@@ -107,6 +107,38 @@ const deleteCategory = [
   },
 ];
 
+const patchCategory = [
+  param("categoryId")
+    .notEmpty()
+    .withMessage("Field can't be empty")
+    .trim()
+    .isInt()
+    .withMessage("Field must be an integer")
+    .escape(),
+  body("newCategory")
+    .notEmpty()
+    .withMessage("Field can't be empty")
+    .trim()
+    .escape(),
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).send(errors.array());
+    }
+
+    const { categoryId, newCategory } = matchedData(req);
+    try {
+      await db.updateCategoryById(categoryId, newCategory);
+    } catch (error) {
+      res.status(500).send("Internal server error");
+      console.error(error);
+    }
+
+    res.status(200).send();
+  },
+];
+
 export default {
   getCategory,
   getCategoryEdit,
@@ -116,4 +148,6 @@ export default {
   postCategories,
 
   deleteCategory,
+
+  patchCategory,
 };

@@ -35,6 +35,14 @@ async function deleteCategoryById(categoryId) {
   await pool.query("DELETE FROM categories WHERE category_id=$1", [categoryId]);
 }
 
+async function updateCategoryById(categoryId, newCategory) {
+  await pool.query(
+    `UPDATE categories SET category=$1
+    WHERE category_id=$2;`,
+    [newCategory, categoryId],
+  );
+}
+
 export default {
   getCategoryByName,
   getCategoryById,
@@ -43,4 +51,6 @@ export default {
   addCategory,
 
   deleteCategoryById,
+
+  updateCategoryById,
 };

@@ -14,4 +14,6 @@ categoriesRouter.post("/", categoriesController.postCategories);
 
 categoriesRouter.get("/:categoryId/edit", categoriesController.getCategoryEdit);
 
+categoriesRouter.patch("/:categoryId", categoriesController.patchCategory);
+
 export default categoriesRouter;
