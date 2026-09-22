@@ -11,7 +11,7 @@ async function getCategoryByName(categoryName) {
 
 async function getCategoryById(categoryId) {
   const query = await pool.query(
-    "SELECT * FROM categories WHERE category=$1;",
+    "SELECT * FROM categories WHERE category_id=$1;",
     [categoryId],
   );
 
