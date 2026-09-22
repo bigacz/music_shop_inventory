@@ -109,6 +109,55 @@ const deleteProducer = [
   },
 ];
 
+const patchProducer = [
+  param("producerId")
+    .notEmpty()
+    .withMessage("Field can't be empty")
+    .trim()
+    .isInt()
+    .withMessage("Field must be an integer")
+    .escape(),
+  body("newProducer")
+    .notEmpty()
+    .withMessage("Field can't be empty")
+    .trim()
+    .escape(),
+  body("newEmail")
+    .notEmpty()
+    .withMessage("Field can't be empty")
+    .trim()
+    .isEmail()
+    .withMessage("Must be a valid email")
+    .escape(),
+  body("newLocation")
+    .notEmpty()
+    .withMessage("Field can't be empty")
+    .trim()
+    .escape(),
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).send(errors.array());
+    }
+
+    const { producerId, newProducer, newEmail, newLocation } = matchedData(req);
+    try {
+      await db.updateProducerById(
+        producerId,
+        newProducer,
+        newEmail,
+        newLocation,
+      );
+    } catch (error) {
+      res.status(500).send("Internal server error");
+      console.error(error);
+    }
+
+    res.status(200).send();
+  },
+];
+
 export default {
   getProducer,
   getProducerEdit,
@@ -118,4 +167,6 @@ export default {
   postProducer,
 
   deleteProducer,
+
+  patchProducer,
 };

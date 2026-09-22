@@ -36,6 +36,19 @@ async function deleteProducerById(producerId) {
   await pool.query("DELETE FROM producers WHERE producer_id=$1", [producerId]);
 }
 
+async function updateProducerById(
+  producerId,
+  newProducer,
+  newEmail,
+  newLocation,
+) {
+  await pool.query(
+    `UPDATE producers SET producer_name=$1, email=$2, location=$3
+    WHERE producer_id=$4;`,
+    [newProducer, newEmail, newLocation, producerId],
+  );
+}
+
 export default {
   getProducerById,
   getProducerByName,
@@ -44,4 +57,6 @@ export default {
   addProducer,
 
   deleteProducerById,
+
+  updateProducerById,
 };
