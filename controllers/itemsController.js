@@ -1,5 +1,6 @@
 import { body, matchedData, param, validationResult } from "express-validator";
 import db from "../db/queries.js";
+import producers from "../db/tables/producers.js";
 
 const getItem = [
   param("itemId").notEmpty().trim().isInt().escape(),
@@ -13,6 +14,29 @@ const getItem = [
     const items = await db.getItemById(itemId);
 
     res.render("item/item", { item: items[0] });
+  },
+];
+
+const getItemEdit = [
+  param("itemId").notEmpty().trim().escape(),
+  async (req, res) => {
+    const result = validationResult(req);
+
+    if (!result.isEmpty()) {
+      return res.status(400).send({ errors: result.array() });
+    }
+
+    const { itemId } = matchedData(req);
+
+    const items = await db.getItemById(itemId);
+    const categories = await db.getAllCategories();
+    const producers = await db.getAllProducers();
+
+    res.render("item/editItem", {
+      item: items[0],
+      categories: categories,
+      producers: producers,
+    });
   },
 ];
 
@@ -87,8 +111,6 @@ const patchItem = [
     .notEmpty()
     .withMessage("Field can't be empty")
     .trim()
-    .isAlpha()
-    .withMessage("Field must be alphanumeric")
     .escape(),
   body("newCategoryId")
     .notEmpty()
@@ -135,6 +157,7 @@ export default {
   getItems,
   getItem,
   getItemsNew,
+  getItemEdit,
 
   postItems,
 

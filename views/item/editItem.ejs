@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit <%= `${item.model} ${item.producer_name}` %></title>
+</head>
+
+<body>
+  <%- include('../components/navbar.ejs') %>
+  <div>
+    <form id="editForm" action="/" method="POST">
+      <label for="newModel">Model:</label>
+      <input type="text" name="newModel" id="newModel" value="<%=item.model%>" />
+
+      <label for="newCategoryId">Category:</label>
+      <select name="newCategoryId" id="newCategoryId">
+        <% categories.forEach((category) => { %>
+        <option value="<%=category.category_id%>" <%= item.category_id == category.category_id ? 'selected' : null %>>
+          <%=category.category%>
+        </option>
+        <%}) %>
+      </select>
+
+
+      <label for="newProducerId">Producer:</label>
+      <select name="newProducerId" id="newProducerId">
+        <% producers.forEach((producer) => { %>
+        <option value="<%=producer.producer_id%>" <%= item.producer_id == producer.producer_id ? 'selected' : null %>>
+          <%=producer.producer_name%>
+        </option>
+        <%}) %>
+      </select>
+
+
+      <label for="newQuantity">Quantity:</label>
+      <input type="number" name="newQuantity" id="newQuantity" value="<%=item.quantity%>" />
+
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</body>
+<script>
+  const form = document.getElementById('editForm');
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch('/items/<%=item.item_id%>', {
+        method: 'PATCH',
+        body: new URLSearchParams(new FormData(event.target)),
+      })
+
+      if (!response.ok) {
+        throw response
+      }
+
+      window.location.pathname = 'items/8'
+    } catch (error) {
+      console.log(error);
+    }
+  })
+</script>
+
+</html>
