@@ -1,6 +1,19 @@
 import { body, matchedData, param, validationResult } from "express-validator";
 import db from "../db/queries.js";
 
+const redirectNonIntegers = [
+  param("param").trim().isInt().escape(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.render("notFound");
+    }
+
+    next();
+  },
+];
+
 const getCategory = [
   param("categoryId")
     .notEmpty()
@@ -140,6 +153,8 @@ const patchCategory = [
 ];
 
 export default {
+  redirectNonIntegers,
+
   getCategory,
   getCategoryEdit,
   getAllCategories,

@@ -16,6 +16,10 @@ app.use("/items", itemsRouter);
 app.use("/categories", categoriesRouter);
 app.use("/producers", producersRouter);
 
+app.use("/", (req, res) => {
+  res.redirect("/items");
+});
+
 app.all("{*ok}", (req, res) => {
   res.status(404).render("notFound");
 });
