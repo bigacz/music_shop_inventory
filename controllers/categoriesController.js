@@ -37,6 +37,10 @@ const getCategory = [
     const items = await db.getAllItemsByCategoryId(categoryId);
     const category = (await db.getCategoryById(categoryId))[0];
 
+    if (!category) {
+      return res.render("notFound");
+    }
+
     res.render("category/category", { items, category });
   },
 ];
@@ -62,6 +66,10 @@ const getCategoryEdit = [
     const { categoryId } = matchedData(req);
 
     const categoryInfo = (await db.getCategoryById(categoryId))[0];
+
+    if (!categoryInfo) {
+      return res.render("notFound");
+    }
 
     res.render("category/editCategory", { categoryInfo });
   },
