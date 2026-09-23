@@ -1,6 +1,19 @@
 import { body, matchedData, param, validationResult } from "express-validator";
 import db from "../db/queries.js";
 
+const redirectNonIntegers = [
+  param("param").trim().isInt().escape(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.render("notFound");
+    }
+
+    next();
+  },
+];
+
 const getProducer = [
   param("producerId")
     .notEmpty()
@@ -23,6 +36,10 @@ const getProducer = [
 
     const items = await db.getAllItemsByProducerId(producerId);
     const producerInfo = (await db.getProducerById(producerId))[0];
+
+    if (!producerInfo) {
+      return res.render("notFound");
+    }
 
     res.render("producer/producer", { items, producerInfo });
   },
@@ -49,6 +66,10 @@ const getProducerEdit = [
     const { producerId } = matchedData(req);
 
     const producerInfo = (await db.getProducerById(producerId))[0];
+
+    if (!producerInfo) {
+      return res.render("notFound");
+    }
 
     res.render("producer/editProducer", { producerInfo });
   },
@@ -159,6 +180,8 @@ const patchProducer = [
 ];
 
 export default {
+  redirectNonIntegers,
+
   getProducer,
   getProducerEdit,
   getAllProducers,
