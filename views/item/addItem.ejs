@@ -14,21 +14,23 @@
     <label for="model">Model:</label>
     <input type="text" name="model" id="model" />
 
-    <label for="category">Category:</label>
-    <input type="text" name="category" id="category" list="category_datalist" />
-    <datalist id="category_datalist">
-      <% categories.map((category) => { %>
-      <option value="<%= category.category %>" />
-      <% }) %>
-    </datalist>
+    <label for="categoryId">Category:</label>
+    <select name="categoryId" id="categoryId">
+      <% categories.forEach((category) => { %>
+      <option value="<%=category.category_id%>">
+        <%=category.category%>
+      </option>
+      <%}) %>
+    </select>
 
-    <label for="producer">Producer:</label>
-    <input type="text" name="producer" id="producer" list="producer_datalist" />
-    <datalist id="producer_datalist">
-      <% producers.map((producer) => { %>
-      <option value="<%= producer.producer_name %>" />
-      <% }) %>
-    </datalist>
+    <label for="producerId">Producer:</label>
+    <select name="producerId" id="producerId">
+      <% producers.forEach((producer) => { %>
+      <option value="<%=producer.producer_id%>">
+        <%=producer.producer_name%>
+      </option>
+      <%}) %>
+    </select>
 
     <label for="quantity">Quantity:</label>
     <input type="number" name="quantity" id="quantity" />

@@ -1,6 +1,5 @@
 import { body, matchedData, param, validationResult } from "express-validator";
 import db from "../db/queries.js";
-import producers from "../db/tables/producers.js";
 
 const redirectNonIntegers = [
   param("param").trim().isInt().escape(),
@@ -76,8 +75,18 @@ const getItemsNew = async (req, res) => {
 
 const postItems = [
   body("model").notEmpty().trim().escape(),
-  body("category").notEmpty().trim().escape(),
-  body("producer").notEmpty().trim().escape(),
+  body("categoryId")
+    .notEmpty()
+    .trim()
+    .isInt()
+    .withMessage("Field must be an integer")
+    .escape(),
+  body("producerId")
+    .notEmpty()
+    .trim()
+    .isInt()
+    .withMessage("Field must be an integer")
+    .escape(),
   body("quantity").notEmpty().trim().isInt({ min: 0 }).escape(),
   async (req, res) => {
     const result = validationResult(req);
@@ -86,10 +95,7 @@ const postItems = [
       return res.send({ errors: result.array() });
     }
 
-    const { model, category, producer, quantity } = matchedData(req);
-
-    const categoryId = (await db.getCategoryByName(category))[0].category_id;
-    const producerId = (await db.getProducerByName(producer))[0].producer_id;
+    const { model, categoryId, producerId, quantity } = matchedData(req);
 
     await db.addItem(model, categoryId, producerId, quantity);
 
