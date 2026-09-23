@@ -7,10 +7,13 @@ itemsRouter.get("/", itemsController.getItems);
 itemsRouter.post("/", itemsController.postItems);
 
 itemsRouter.get("/new", itemsController.getItemsNew);
-itemsRouter.delete("/:itemId", itemsController.deleteItem);
-itemsRouter.get("/:itemId", itemsController.getItem);
-itemsRouter.get("/:itemId/edit", itemsController.getItemEdit);
 
+itemsRouter.use("/:param", itemsController.redirectNonIntegers);
+
+itemsRouter.get("/:itemId", itemsController.getItem);
 itemsRouter.patch("/:itemId", itemsController.patchItem);
+itemsRouter.delete("/:itemId", itemsController.deleteItem);
+
+itemsRouter.get("/:itemId/edit", itemsController.getItemEdit);
 
 export default itemsRouter;
