@@ -24,6 +24,12 @@ app.all("{*ok}", (req, res) => {
   res.status(404).render("notFound");
 });
 
+app.use((err, req, res, next) => {
+  console.error(err);
+
+  res.status(500).render("serverError");
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, (error) => {
