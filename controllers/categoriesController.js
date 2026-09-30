@@ -86,12 +86,16 @@ const getCategoryNew = async (req, res) => {
 };
 
 const postCategories = [
-  body("categoryName").notEmpty().trim().escape(),
+  body("categoryName")
+    .notEmpty()
+    .withMessage("Category name can't be empty!")
+    .trim()
+    .escape(),
   async (req, res) => {
     const result = validationResult(req);
 
     if (!result.isEmpty()) {
-      return { errors: result.array() };
+      return res.render("category/addCategory", { errors: result.array() });
     }
 
     const { categoryName } = matchedData(req);

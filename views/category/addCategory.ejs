@@ -11,6 +11,7 @@
   <%- include('../components/navbar.ejs') %>
   <h2>Add a category:</h2>
   <form action="/categories" method="POST">
+    <%- include('../components/errorPanel.ejs') %>
     <label for="category">Category:</label>
     <input type="text" name="categoryName" id="categoryName" />
 
