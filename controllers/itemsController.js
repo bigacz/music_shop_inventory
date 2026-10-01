@@ -74,32 +74,38 @@ const getItemsNew = async (req, res) => {
 };
 
 const postItems = [
-  body("model").notEmpty().trim().escape(),
+  body("model").notEmpty().withMessage(`Model can't be empty`).trim().escape(),
   body("categoryId")
     .notEmpty()
     .trim()
     .isInt()
-    .withMessage("Field must be an integer")
+    .withMessage("CategoryId must be an integer")
     .escape(),
   body("producerId")
     .notEmpty()
     .trim()
     .isInt()
-    .withMessage("Field must be an integer")
+    .withMessage("ProducerId must be an integer")
     .escape(),
-  body("quantity").notEmpty().trim().isInt({ min: 0 }).escape(),
+  body("quantity")
+    .notEmpty()
+    .withMessage(`Quantity can't be empty`)
+    .trim()
+    .isInt({ min: 0 })
+    .withMessage(`Quantity must be a positive integer`)
+    .escape(),
   async (req, res) => {
     const result = validationResult(req);
 
     if (!result.isEmpty()) {
-      return res.send({ errors: result.array() });
+      return res.status(400).json(result.array());
     }
 
     const { model, categoryId, producerId, quantity } = matchedData(req);
 
     await db.addItem(model, categoryId, producerId, quantity);
 
-    res.redirect("items");
+    return res.status(200).end();
   },
 ];
 

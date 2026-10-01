@@ -10,7 +10,9 @@
 <body>
   <%- include('../components/navbar.ejs') %>
   <h2>Add an item:</h2>
-  <form action="/items" method="POST">
+  <form action="/items" method="POST" id="addForm">
+    <div id="errorPanel"></div>
+
     <label for="model">Model:</label>
     <input type="text" name="model" id="model" />
 
@@ -38,5 +40,43 @@
     <button type="submit">Add</button>
   </form>
 </body>
+<script>
+  const errorPanel = document.getElementById('errorPanel');
+
+  const form = document.getElementById('addForm');
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch('/items', {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(event.target)),
+      })
+
+
+      if (response.status == 400) {
+        errorPanel.innerHTML = ''
+
+        const errors = await response.json();
+
+        errors.forEach((error) => {
+          const errorNode = document.createElement('li')
+          errorNode.textContent = error.msg;
+
+          errorPanel.append(errorNode);
+        })
+      }
+
+      if (!response.ok) {
+        throw response
+      }
+      console.log('elo')
+
+      window.location.pathname = 'items'
+    } catch (error) {
+      console.log(error);
+    }
+  })
+</script>
 
 </html>
