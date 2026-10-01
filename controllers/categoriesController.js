@@ -17,10 +17,10 @@ const redirectNonIntegers = [
 const getCategory = [
   param("categoryId")
     .notEmpty()
-    .withMessage("Field cant be empty")
+    .withMessage("categoryId cant be empty")
     .trim()
     .isInt()
-    .withMessage("Field must be an integer")
+    .withMessage("categoryId must be an integer")
     .escape(),
   async (req, res) => {
     const errors = validationResult(req);
@@ -48,10 +48,10 @@ const getCategory = [
 const getCategoryEdit = [
   param("categoryId")
     .notEmpty()
-    .withMessage("Field cant be empty")
+    .withMessage("categoryId cant be empty")
     .trim()
     .isInt()
-    .withMessage("Field must be an integer")
+    .withMessage("categoryId must be an integer")
     .escape(),
   async (req, res) => {
     const errors = validationResult(req);
@@ -109,10 +109,10 @@ const postCategories = [
 const deleteCategory = [
   param("categoryId")
     .notEmpty()
-    .withMessage("Field cant be empty")
+    .withMessage("categoryId cant be empty")
     .trim()
     .isInt()
-    .withMessage("Field must be an integer")
+    .withMessage("categoryId must be an integer")
     .escape(),
   async (req, res) => {
     const errors = validationResult(req);
