@@ -11,6 +11,7 @@
   <%- include('../components/navbar.ejs') %>
   <div>
     <form id="editForm" action="/" method="POST">
+      <div id="errorPanel"></div>
       <label for="newProducer">Producer:</label>
       <input type="text" name="newProducer" id="newProducer" value="<%= producerInfo.producer_name%>" />
 
@@ -25,7 +26,9 @@
   </div>
 </body>
 <script>
+  const errorPanel = document.getElementById('errorPanel');
   const form = document.getElementById('editForm');
+
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
@@ -34,6 +37,19 @@
         method: 'PATCH',
         body: new URLSearchParams(new FormData(event.target)),
       })
+
+      if (response.status == 400) {
+        errorPanel.innerHTML = ''
+
+        const errors = await response.json();
+
+        errors.forEach((error) => {
+          const errorNode = document.createElement('li')
+          errorNode.textContent = error.msg;
+
+          errorPanel.append(errorNode);
+        })
+      }
 
       if (!response.ok) {
         throw response

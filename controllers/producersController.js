@@ -147,26 +147,26 @@ const deleteProducer = [
 const patchProducer = [
   param("producerId")
     .notEmpty()
-    .withMessage("Field can't be empty")
+    .withMessage("producerId can't be empty")
     .trim()
     .isInt()
-    .withMessage("Field must be an integer")
+    .withMessage("producerId must be an integer")
     .escape(),
   body("newProducer")
     .notEmpty()
-    .withMessage("Field can't be empty")
+    .withMessage("Producer can't be empty")
     .trim()
     .escape(),
   body("newEmail")
     .notEmpty()
-    .withMessage("Field can't be empty")
+    .withMessage("Email can't be empty")
     .trim()
     .isEmail()
     .withMessage("Must be a valid email")
     .escape(),
   body("newLocation")
     .notEmpty()
-    .withMessage("Field can't be empty")
+    .withMessage("Location can't be empty")
     .trim()
     .escape(),
   async (req, res) => {
@@ -177,17 +177,8 @@ const patchProducer = [
     }
 
     const { producerId, newProducer, newEmail, newLocation } = matchedData(req);
-    try {
-      await db.updateProducerById(
-        producerId,
-        newProducer,
-        newEmail,
-        newLocation,
-      );
-    } catch (error) {
-      res.status(500).send("Internal server error");
-      console.error(error);
-    }
+
+    await db.updateProducerById(producerId, newProducer, newEmail, newLocation);
 
     res.status(200).send();
   },
