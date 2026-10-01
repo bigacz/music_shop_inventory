@@ -95,7 +95,7 @@ const postCategories = [
     const result = validationResult(req);
 
     if (!result.isEmpty()) {
-      return res.render("category/addCategory", { errors: result.array() });
+      return res.status(400).json(result.array());
     }
 
     const { categoryName } = matchedData(req);
