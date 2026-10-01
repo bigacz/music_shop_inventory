@@ -135,31 +135,37 @@ const deleteItem = [
 const patchItem = [
   param("itemId")
     .notEmpty()
-    .withMessage("Field can't be empty")
+    .withMessage("itemId can't be empty")
     .trim()
     .isInt()
-    .withMessage("Field must be an integer")
+    .withMessage("itemId must be an integer")
     .escape(),
   body("newModel")
     .notEmpty()
-    .withMessage("Field can't be empty")
+    .withMessage("Model can't be empty")
     .trim()
     .escape(),
   body("newCategoryId")
     .notEmpty()
-    .withMessage("Field can't be empty")
+    .withMessage("CategoryId can't be empty")
     .trim()
     .isInt()
-    .withMessage("Field must be an integer")
+    .withMessage("CategoryId must be an integer")
     .escape(),
   body("newProducerId")
     .notEmpty()
-    .withMessage("Field can't be empty")
+    .withMessage("ProducerId can't be empty")
     .trim()
     .isInt()
-    .withMessage("Field must be an integer")
+    .withMessage("ProducerId must be an integer")
     .escape(),
-  body("newQuantity").escape(),
+  body("newQuantity")
+    .notEmpty()
+    .withMessage(`Quantity can't be empty`)
+    .trim()
+    .isInt({ min: 0 })
+    .withMessage(`Quantity must be a positive integer`)
+    .escape(),
   async (req, res) => {
     const errors = validationResult(req);
 
@@ -169,18 +175,14 @@ const patchItem = [
 
     const { itemId, newModel, newCategoryId, newProducerId, newQuantity } =
       matchedData(req);
-    try {
-      await db.updateItemById(
-        itemId,
-        newModel,
-        newCategoryId,
-        newProducerId,
-        newQuantity,
-      );
-    } catch (error) {
-      res.status(500).send("Internal server error");
-      console.error(error);
-    }
+
+    await db.updateItemById(
+      itemId,
+      newModel,
+      newCategoryId,
+      newProducerId,
+      newQuantity,
+    );
 
     res.status(200).send();
   },
