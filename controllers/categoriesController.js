@@ -135,14 +135,14 @@ const deleteCategory = [
 const patchCategory = [
   param("categoryId")
     .notEmpty()
-    .withMessage("Field can't be empty")
+    .withMessage("categoryId can't be empty")
     .trim()
     .isInt()
-    .withMessage("Field must be an integer")
+    .withMessage("categoryId must be an integer")
     .escape(),
   body("newCategory")
     .notEmpty()
-    .withMessage("Field can't be empty")
+    .withMessage("Category name can't be empty")
     .trim()
     .escape(),
   async (req, res) => {
