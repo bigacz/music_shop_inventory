@@ -1,24 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add new producer</title>
-  </head>
-  <body>
-    <%- include('../components/navbar.ejs') %>
-    <h2>Add a producer:</h2>
-    <form action="/producers" method="POST">
-      <label for="producer">Producer:</label>
-      <input type="text" name="producer" id="producer" />
 
-      <label for="email">E-mail:</label>
-      <input type="text" name="email" id="email" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add new producer</title>
+</head>
 
-      <label for="location">Location:</label>
-      <input type="text" name="location" id="location" />
+<body>
+  <%- include('../components/navbar.ejs') %>
+  <h2>Add a producer:</h2>
+  <form action="/producers" method="POST" id="addForm">
+    <div id="errorPanel"></div>
+    <label for="producer">Producer:</label>
+    <input type="text" name="producer" id="producer" />
 
-      <button type="submit">Add</button>
-    </form>
-  </body>
+    <label for="email">E-mail:</label>
+    <input type="text" name="email" id="email" />
+
+    <label for="location">Location:</label>
+    <input type="text" name="location" id="location" />
+
+    <button type="submit">Add</button>
+  </form>
+</body>
+<script>
+  const errorPanel = document.getElementById('errorPanel');
+
+  const form = document.getElementById('addForm');
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch('/producers', {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(event.target)),
+      })
+
+
+      if (response.status == 400) {
+        errorPanel.innerHTML = ''
+
+        const errors = await response.json();
+
+        errors.forEach((error) => {
+          const errorNode = document.createElement('li')
+          errorNode.textContent = error.msg;
+
+          errorPanel.append(errorNode);
+        })
+      }
+
+      if (!response.ok) {
+        throw response
+      }
+
+      window.location.pathname = 'producers'
+    } catch (error) {
+      console.log(error);
+    }
+  })
+</script>
+
 </html>

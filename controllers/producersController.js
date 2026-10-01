@@ -86,21 +86,35 @@ const getProducerNew = async (req, res) => {
 };
 
 const postProducer = [
-  body("producer").notEmpty().trim().escape(),
-  body("location").notEmpty().trim().escape(),
-  body("email").notEmpty().trim().isEmail().escape(),
+  body("producer")
+    .notEmpty()
+    .withMessage(`Producer can't be empty`)
+    .trim()
+    .escape(),
+  body("location")
+    .notEmpty()
+    .withMessage(`Location can't be empty`)
+    .trim()
+    .escape(),
+  body("email")
+    .notEmpty()
+    .withMessage(`Email can't be empty`)
+    .trim()
+    .isEmail()
+    .withMessage("Email must be a valid email")
+    .escape(),
   async (req, res) => {
     const result = validationResult(req);
 
     if (!result.isEmpty()) {
-      return res.send({ errors: result.array() });
+      return res.status(400).send(result.array());
     }
 
     const { producer, location, email } = matchedData(req);
 
     await db.addProducer(producer, location, email);
 
-    res.redirect("producers");
+    return res.send(200).end();
   },
 ];
 
