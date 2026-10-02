@@ -100,9 +100,20 @@ const postCategories = [
 
     const { categoryName } = matchedData(req);
 
-    await db.addCategory(categoryName);
+    try {
+      const query = await db.addCategory(categoryName);
+    } catch (error) {
+      if (error.code === "23505") {
+        res
+          .status(400)
+          .json([{ msg: "There is already a category with this name" }]);
+        return;
+      } else {
+        throw error;
+      }
+    }
 
-    res.redirect("categories");
+    res.status(200).send();
   },
 ];
 
@@ -153,11 +164,18 @@ const patchCategory = [
     }
 
     const { categoryId, newCategory } = matchedData(req);
+
     try {
-      await db.updateCategoryById(categoryId, newCategory);
+      const query = await db.updateCategoryById(categoryId, newCategory);
     } catch (error) {
-      res.status(500).send("Internal server error");
-      console.error(error);
+      if (error.code === "23505") {
+        res
+          .status(400)
+          .json([{ msg: "There is already a category with this name" }]);
+        return;
+      } else {
+        throw error;
+      }
     }
 
     res.status(200).send();

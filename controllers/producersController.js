@@ -112,7 +112,18 @@ const postProducer = [
 
     const { producer, location, email } = matchedData(req);
 
-    await db.addProducer(producer, location, email);
+    try {
+      const query = await db.addProducer(producer, location, email);
+    } catch (error) {
+      if (error.code === "23505") {
+        const msg = "There is already a producer with this name";
+
+        res.status(400).json([{ msg }]);
+        return;
+      } else {
+        throw error;
+      }
+    }
 
     return res.send(200).end();
   },
@@ -178,7 +189,23 @@ const patchProducer = [
 
     const { producerId, newProducer, newEmail, newLocation } = matchedData(req);
 
-    await db.updateProducerById(producerId, newProducer, newEmail, newLocation);
+    try {
+      const query = await db.updateProducerById(
+        producerId,
+        newProducer,
+        newEmail,
+        newLocation,
+      );
+    } catch (error) {
+      if (error.code === "23505") {
+        const msg = "There is already a producer with this name";
+
+        res.status(400).json([{ msg }]);
+        return;
+      } else {
+        throw error;
+      }
+    }
 
     res.status(200).send();
   },

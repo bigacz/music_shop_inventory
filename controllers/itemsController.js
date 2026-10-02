@@ -103,7 +103,19 @@ const postItems = [
 
     const { model, categoryId, producerId, quantity } = matchedData(req);
 
-    await db.addItem(model, categoryId, producerId, quantity);
+    try {
+      const query = await db.addItem(model, categoryId, producerId, quantity);
+    } catch (error) {
+      if (error.code === "23505") {
+        const msg =
+          "There is already an item with this model producer and category";
+
+        res.status(400).json([{ msg }]);
+        return;
+      } else {
+        throw error;
+      }
+    }
 
     return res.status(200).end();
   },
@@ -176,13 +188,25 @@ const patchItem = [
     const { itemId, newModel, newCategoryId, newProducerId, newQuantity } =
       matchedData(req);
 
-    await db.updateItemById(
-      itemId,
-      newModel,
-      newCategoryId,
-      newProducerId,
-      newQuantity,
-    );
+    try {
+      const query = await db.updateItemById(
+        itemId,
+        newModel,
+        newCategoryId,
+        newProducerId,
+        newQuantity,
+      );
+    } catch (error) {
+      if (error.code === "23505") {
+        const msg =
+          "There is already an item with this model producer and category";
+
+        res.status(400).json([{ msg }]);
+        return;
+      } else {
+        throw error;
+      }
+    }
 
     res.status(200).send();
   },
