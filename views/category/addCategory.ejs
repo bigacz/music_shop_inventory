@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Add new category</title>
+  <script src="/scripts/category/addCategory.js" defer></script>
 </head>
 
 <body>
@@ -18,43 +19,6 @@
     <button type="submit">Add</button>
   </form>
 </body>
-<script>
-  const errorPanel = document.getElementById('errorPanel');
 
-  const form = document.getElementById('editForm');
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
-
-    try {
-      const response = await fetch('/categories', {
-        method: 'POST',
-        body: new URLSearchParams(new FormData(event.target)),
-      })
-
-      debugger
-      if (response.status == 400) {
-        errorPanel.innerHTML = ''
-
-        const errors = await response.json();
-
-        errors.forEach((error) => {
-          const errorNode = document.createElement('li')
-          errorNode.textContent = error.msg;
-
-          errorPanel.append(errorNode);
-        })
-      }
-
-      if (!response.ok) {
-        throw response
-      }
-
-
-      window.location.pathname = 'categories'
-    } catch (error) {
-      console.log(error);
-    }
-  })
-</script>
 
 </html>
