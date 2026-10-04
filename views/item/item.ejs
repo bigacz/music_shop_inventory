@@ -5,6 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title> Item: <%=item.model%> </title>
+  <script src="/scripts/item/item.js" defer></script>
+
 </head>
 
 <body>
@@ -30,16 +32,10 @@
           </td>
           <td><%= item.quantity %></td>
           <td>
-            <button onclick="(async () => {
-                await fetch(`/items/<%= item.item_id%>`, {
-                  method: 'DELETE',
-                })
-                
-                window.location.pathname = '/items'
-              })()">
+            <button data-item-id="<%=item.item_id%>">
               DELETE
             </button>
-            <button><a href="./<%=item.item_id%>/edit">Edit</a></button>
+            <button><a href=" ./<%=item.item_id%>/edit">Edit</a></button>
           </td>
         </tr>
       </tbody>

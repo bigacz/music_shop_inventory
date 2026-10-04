@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>All Items</title>
   <link rel="stylesheet" href="style/allItems.css">
+  <script src="/scripts/item/allItems.js" defer></script>
+
 </head>
 
 <body>
@@ -29,13 +31,7 @@
           <td> <a href="/categories/<%= item.category_id%>"><%= item.category %></a> </td>
           <td> <%= item.quantity %> </td>
           <td>
-            <button onclick="(async () => {
-                await fetch(`/items/<%= item.item_id%>`, {
-                  method: 'DELETE',
-                })
-                
-                window.location.pathname = '/items'
-              })()">
+            <button data-item-id="<%=item.item_id%>">
               DELETE
             </button>
           </td>
