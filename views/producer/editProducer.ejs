@@ -5,6 +5,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Edit producer: <%= producerInfo.producer_name %></title>
+
+  <script src="/scripts/producer/editProducer.js" defer></script>
+
 </head>
 
 <body>
@@ -21,45 +24,13 @@
       <label for="newLocation">Location:</label>
       <input type="text" name="newLocation" id="newLocation" value="<%= producerInfo.location %>" />
 
+      <input type="hidden" name="producerId" value="<%= producerInfo.producer_id%>">
+
+
       <button type="submit">Save</button>
     </form>
   </div>
 </body>
-<script>
-  const errorPanel = document.getElementById('errorPanel');
-  const form = document.getElementById('editForm');
 
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
-
-    try {
-      const response = await fetch('/producers/<%=producerInfo.producer_id%>', {
-        method: 'PATCH',
-        body: new URLSearchParams(new FormData(event.target)),
-      })
-
-      if (response.status == 400) {
-        errorPanel.innerHTML = ''
-
-        const errors = await response.json();
-
-        errors.forEach((error) => {
-          const errorNode = document.createElement('li')
-          errorNode.textContent = error.msg;
-
-          errorPanel.append(errorNode);
-        })
-      }
-
-      if (!response.ok) {
-        throw response
-      }
-
-      window.location.pathname = 'producers/<%=producerInfo.producer_id%>'
-    } catch (error) {
-      console.log(error);
-    }
-  })
-</script>
 
 </html>
