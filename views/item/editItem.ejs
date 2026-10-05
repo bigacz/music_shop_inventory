@@ -14,10 +14,10 @@
     <form id="editForm">
       <div id="errorPanel"></div>
       <label for="newModel">Model:</label>
-      <input type="text" name="newModel" id="newModel" value="<%=item.model%>" />
+      <input type="text" name="newModel" id="newModel" value="<%=item.model%>" required />
 
       <label for="newCategoryId">Category:</label>
-      <select name="newCategoryId" id="newCategoryId">
+      <select name="newCategoryId" id="newCategoryId" required>
         <% categories.forEach((category) => { %>
         <option value="<%=category.category_id%>" <%= item.category_id == category.category_id ? 'selected' : null %>>
           <%=category.category%>
@@ -27,7 +27,7 @@
 
 
       <label for="newProducerId">Producer:</label>
-      <select name="newProducerId" id="newProducerId">
+      <select name="newProducerId" id="newProducerId" required>
         <% producers.forEach((producer) => { %>
         <option value="<%=producer.producer_id%>" <%= item.producer_id == producer.producer_id ? 'selected' : null %>>
           <%=producer.producer_name%>
@@ -37,7 +37,7 @@
 
 
       <label for="newQuantity">Quantity:</label>
-      <input type="number" name="newQuantity" id="newQuantity" value="<%=item.quantity%>" />
+      <input type="number" name="newQuantity" id="newQuantity" value="<%=item.quantity%>" min="1" required />
       <input type="hidden" name="itemId" value="<%= item.item_id%>">
 
       <button type="submit">Save</button>

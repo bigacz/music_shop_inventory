@@ -7,6 +7,12 @@ const path = window.location.pathname.split("/").splice(1, 2).join("/");
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
+  const isFormValid = form.checkValidity();
+
+  if (!isFormValid) {
+    return;
+  }
+
   try {
     const response = await fetch(`/${path}`, {
       method: "PATCH",

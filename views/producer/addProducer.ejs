@@ -15,13 +15,13 @@
   <form action="/producers" method="POST" id="addForm">
     <div id="errorPanel"></div>
     <label for="producer">Producer:</label>
-    <input type="text" name="producer" id="producer" />
+    <input type="text" name="producer" id="producer" required />
 
     <label for="email">E-mail:</label>
-    <input type="text" name="email" id="email" />
+    <input type="email" name="email" id="email" required />
 
     <label for="location">Location:</label>
-    <input type="text" name="location" id="location" />
+    <input type="text" name="location" id="location" required />
 
     <button type="submit">Add</button>
   </form>

@@ -16,13 +16,13 @@
     <form id="editForm" action="/" method="POST">
       <div id="errorPanel"></div>
       <label for="newProducer">Producer:</label>
-      <input type="text" name="newProducer" id="newProducer" value="<%= producerInfo.producer_name%>" />
+      <input type="text" name="newProducer" id="newProducer" value="<%= producerInfo.producer_name%>" required />
 
       <label for="newEmail">E-mail:</label>
-      <input type="text" name="newEmail" id="newEmail" value="<%= producerInfo.email%>" />
+      <input type="email" name="newEmail" id="newEmail" value="<%= producerInfo.email%>" required />
 
       <label for="newLocation">Location:</label>
-      <input type="text" name="newLocation" id="newLocation" value="<%= producerInfo.location %>" />
+      <input type="text" name="newLocation" id="newLocation" value="<%= producerInfo.location %>" required />
 
       <input type="hidden" name="producerId" value="<%= producerInfo.producer_id%>">
 

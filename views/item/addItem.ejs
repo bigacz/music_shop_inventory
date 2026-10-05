@@ -16,10 +16,10 @@
     <div id="errorPanel"></div>
 
     <label for="model">Model:</label>
-    <input type="text" name="model" id="model" />
+    <input type="text" name="model" id="model" required />
 
     <label for="categoryId">Category:</label>
-    <select name="categoryId" id="categoryId">
+    <select name="categoryId" id="categoryId" required>
       <% categories.forEach((category) => { %>
       <option value="<%=category.category_id%>">
         <%=category.category%>
@@ -28,7 +28,7 @@
     </select>
 
     <label for="producerId">Producer:</label>
-    <select name="producerId" id="producerId">
+    <select name="producerId" id="producerId" required>
       <% producers.forEach((producer) => { %>
       <option value="<%=producer.producer_id%>">
         <%=producer.producer_name%>
@@ -37,7 +37,7 @@
     </select>
 
     <label for="quantity">Quantity:</label>
-    <input type="number" name="quantity" id="quantity" />
+    <input type="number" name="quantity" id="quantity" min="1" required />
 
     <button type="submit">Add</button>
   </form>
