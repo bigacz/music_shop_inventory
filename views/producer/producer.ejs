@@ -14,25 +14,33 @@
 
 <body>
   <%- include('../components/navbar.ejs') %>
-  <div>
-    <h2>Producer: <%= producerInfo.producer_name %></h2>
-    <p>Location: <%= producerInfo.location %></p>
-    <p>Email: <%= producerInfo.email %></p>
-    <button><a href="./<%=producerInfo.producer_id%>/edit">Edit</a></button>
-    <button id="deleteButton" data-producer-id="<%=producerInfo.producer_id%>">DELETE</button>
+  <div class="main-wrapper">
+    <div class="producer-info">
+      <h2>Producer: <%= producerInfo.producer_name %></h2>
+      <p><span class="span-bold">Location:</span> <%= producerInfo.location %></p>
+      <p><span class="span-bold">Email:</span> <%= producerInfo.email %></p>
+      <div class="button-wrapper">
+        <button id="deleteButton" class="button-delete" data-producer-id="<%=producerInfo.producer_id%>">Delete</button>
+        <a class="link-edit" href="./<%=producerInfo.producer_id%>/edit">Edit</a>
+      </div>
+    </div>
 
     <% if(items.length > 0) { %>
     <table>
+      <span>Items from this producer:</span>
       <thead>
         <tr>
-          <th>Model</th>
-          <th>Category</th>
-          <th>Quantity</th>
+          <th class="table__header-number">No.</th>
+          <th class="table__header-generic">Model</th>
+          <th class="table__header-generic">Category</th>
+          <th class="table__header-quantity">Quantity</th>
         </tr>
       </thead>
       <tbody>
-        <%  items.map((item) => { %>
+        <%  items.map((item, index) => { %>
         <tr>
+          <td><%= index + 1 %></td>
+
           <td> <%= item.model %> </td>
           <td> <%= item.category %> </td>
           <td> <%= item.quantity %> </td>
@@ -40,10 +48,9 @@
       </tbody>
       <% }) %>
     </table>
-    <span>Results: <%= items.length %> </span>
 
     <% } else { %>
-    <p>No items from producer</p>
+    <p>No items from this producer</p>
     <% } %>
   </div>
 </body>

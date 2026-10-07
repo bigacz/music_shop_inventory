@@ -1,6 +1,62 @@
 @import url(/style/components/navbar.css);
 @import url(/style/main.css);
+@import url(/style/table.css);
 
 .navbar > a:nth-child(3) {
   color: rgb(179, 179, 179);
+}
+
+.main-wrapper {
+  display: grid;
+  grid-auto-rows: max-content;
+  gap: 1rem;
+}
+
+.producer-info {
+  display: grid;
+  justify-content: left;
+}
+
+.span-bold {
+  font-weight: 700;
+}
+
+.button-wrapper {
+  display: grid;
+  grid-auto-columns: max-content;
+  grid-auto-flow: column;
+  gap: 1rem;
+}
+
+.link-edit,
+.button-delete {
+  display: block;
+  text-decoration: none;
+
+  font-weight: 600;
+  font-size: 1.05rem;
+
+  box-sizing: border-box;
+  border: none;
+  padding: 0.5rem 1rem;
+  color: white;
+  border-radius: 4px;
+
+  display: grid;
+
+  justify-items: center;
+  align-content: center;
+}
+
+.link-edit:active,
+.button-delete:active {
+  filter: brightness(0.9);
+}
+
+.button-delete {
+  background-color: rgb(226, 93, 93);
+}
+
+.link-edit {
+  background-color: rgb(110, 223, 110);
 }
