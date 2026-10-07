@@ -1,0 +1,61 @@
+.form {
+  display: grid;
+  align-content: start;
+  gap: 0.5rem;
+  grid-auto-flow: row;
+  /* grid-auto-rows: 2.5lh; */
+  width: min(500px);
+  justify-self: center;
+}
+
+.form__error-panel {
+  font-size: 1.1rem;
+  color: rgb(255, 69, 69);
+}
+
+.form__input-wrapper {
+  display: grid;
+  grid-template-rows: max-content 1fr;
+  gap: 0.1rem;
+}
+
+.form__input-wrapper input,
+.form__input-wrapper select {
+  font-family: Tahoma;
+  font-size: 1.05rem;
+  padding: 0.5rem;
+
+  display: grid;
+  grid-template-rows: max-content 1fr;
+
+  border: none;
+  background-color: rgb(245, 245, 245);
+
+  position: relative;
+}
+
+.form__input-wrapper--required > label::after {
+  content: " *";
+  color: red;
+}
+
+.form__input-wrapper label {
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.form__button-add {
+  justify-self: center;
+  padding: 0.9rem 2rem;
+  font-size: 1.2rem;
+  border: none;
+  background-color: rgb(117, 226, 117);
+  color: white;
+  font-weight: 700;
+
+  border-radius: 4px;
+}
+
+.form__button-add:active {
+  background-color: rgb(107, 202, 107);
+}

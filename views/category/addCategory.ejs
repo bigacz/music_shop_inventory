@@ -12,13 +12,15 @@
 
 <body>
   <%- include('../components/navbar.ejs') %>
-  <h2>Add a category:</h2>
-  <form action="/categories" method="POST" id="editForm">
-    <div id="errorPanel"></div>
-    <label for="category">Category:</label>
-    <input type="text" name="categoryName" id="categoryName" required />
+  <form action="/categories" method="POST" id="editForm" class="form">
+    <h2>Add a category:</h2>
+    <div id="errorPanel" class="form__error-panel"></div>
+    <div class="form__input-wrapper form__input-wrapper--required">
+      <label for="category">Category:</label>
+      <input type="text" name="categoryName" id="categoryName" required />
+    </div>
 
-    <button type="submit">Add</button>
+    <button type="submit" class="form__button-add">Add</button>
   </form>
 </body>
 

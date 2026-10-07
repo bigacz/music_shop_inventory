@@ -13,35 +13,43 @@
 
 <body>
   <%- include('../components/navbar.ejs') %>
-  <h2>Add an item:</h2>
-  <form action="/items" method="POST" id="addForm">
-    <div id="errorPanel"></div>
+  <form action="/items" method="POST" id="addForm" class="form">
+    <h2>Add an item:</h2>
+    <div id="errorPanel" class="form__error-panel"></div>
 
-    <label for="model">Model:</label>
-    <input type="text" name="model" id="model" required />
+    <div class="form__input-wrapper form__input-wrapper--required">
+      <label for="model">Model:</label>
+      <input type="text" name="model" id="model" required />
+    </div>
 
-    <label for="categoryId">Category:</label>
-    <select name="categoryId" id="categoryId" required>
-      <% categories.forEach((category) => { %>
-      <option value="<%=category.category_id%>">
-        <%=category.category%>
-      </option>
-      <%}) %>
-    </select>
+    <div class="form__input-wrapper form__input-wrapper--required">
+      <label for="categoryId">Category:</label>
+      <select name="categoryId" id="categoryId" required>
+        <% categories.forEach((category) => { %>
+        <option value="<%=category.category_id%>">
+          <%=category.category%>
+        </option>
+        <%}) %>
+      </select>
+    </div>
 
-    <label for="producerId">Producer:</label>
-    <select name="producerId" id="producerId" required>
-      <% producers.forEach((producer) => { %>
-      <option value="<%=producer.producer_id%>">
-        <%=producer.producer_name%>
-      </option>
-      <%}) %>
-    </select>
+    <div class="form__input-wrapper form__input-wrapper--required">
+      <label for="producerId">Producer:</label>
+      <select name="producerId" id="producerId" required>
+        <% producers.forEach((producer) => { %>
+        <option value="<%=producer.producer_id%>">
+          <%=producer.producer_name%>
+        </option>
+        <%}) %>
+      </select>
+    </div>
 
-    <label for="quantity">Quantity:</label>
-    <input type="number" name="quantity" id="quantity" min="1" required />
+    <div class="form__input-wrapper form__input-wrapper--required">
+      <label for="quantity">Quantity:</label>
+      <input type="number" name="quantity" id="quantity" min="1" required />
+    </div>
 
-    <button type="submit">Add</button>
+    <button class="form__button-add" type="submit">Add</button>
   </form>
 </body>
 

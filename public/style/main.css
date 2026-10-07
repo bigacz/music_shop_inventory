@@ -10,6 +10,6 @@ body {
   grid-template-rows: max-content 1fr;
 }
 
-body > div {
+body > *:nth-child(2) {
   padding: 1rem;
 }

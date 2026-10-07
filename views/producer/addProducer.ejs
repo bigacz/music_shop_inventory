@@ -13,19 +13,26 @@
 
 <body>
   <%- include('../components/navbar.ejs') %>
-  <h2>Add a producer:</h2>
-  <form action="/producers" method="POST" id="addForm">
+  <form action="/producers" method="POST" id="addForm" class="form">
+    <h2>Add a producer:</h2>
     <div id="errorPanel"></div>
-    <label for="producer">Producer:</label>
-    <input type="text" name="producer" id="producer" required />
 
-    <label for="email">E-mail:</label>
-    <input type="email" name="email" id="email" required />
+    <div class="form__input-wrapper form__input-wrapper--required">
+      <label for="producer">Producer:</label>
+      <input type="text" name="producer" id="producer" required />
+    </div>
 
-    <label for="location">Location:</label>
-    <input type="text" name="location" id="location" required />
+    <div class="form__input-wrapper form__input-wrapper--required">
+      <label for="email">E-mail:</label>
+      <input type="email" name="email" id="email" required />
+    </div>
 
-    <button type="submit">Add</button>
+    <div class="form__input-wrapper form__input-wrapper--required">
+      <label for="location">Location:</label>
+      <input type="text" name="location" id="location" required />
+    </div>
+
+    <button type="submit" class="form__button-add">Add</button>
   </form>
 </body>
 
