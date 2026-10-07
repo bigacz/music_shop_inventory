@@ -17,11 +17,15 @@
     <div id="errorPanel">
 
     </div>
-    <form id="editForm" action="/" method="POST">
-      <label for="newCategory">Category:</label>
-      <input type="text" name="newCategory" id="newCategory" value="<%= categoryInfo.category%>" required />
+    <form id="editForm" action="/" method="POST" class="form">
+      <h2>Edit a category:</h2>
 
-      <button type="submit">Save</button>
+      <div class="form__input-wrapper form__input-wrapper--required">
+        <label for="newCategory">Category:</label>
+        <input type="text" name="newCategory" id="newCategory" value="<%= categoryInfo.category%>" required />
+      </div>
+
+      <button type="submit" class="form__button-add">Save</button>
     </form>
   </div>
 </body>

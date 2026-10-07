@@ -14,21 +14,30 @@
 <body>
   <%- include('../components/navbar.ejs') %>
   <div>
-    <form id="editForm" action="/" method="POST">
-      <div id="errorPanel"></div>
-      <label for="newProducer">Producer:</label>
-      <input type="text" name="newProducer" id="newProducer" value="<%= producerInfo.producer_name%>" required />
 
-      <label for="newEmail">E-mail:</label>
-      <input type="email" name="newEmail" id="newEmail" value="<%= producerInfo.email%>" required />
+    <form id="editForm" action="/" method="POST" class="form">
+      <h2>Edit an item:</h2>
+      <div id="errorPanel" class="form__error-panel"></div>
 
-      <label for="newLocation">Location:</label>
-      <input type="text" name="newLocation" id="newLocation" value="<%= producerInfo.location %>" required />
+      <div class="form__input-wrapper form__input-wrapper--required">
+        <label for="newProducer">Producer:</label>
+        <input type="text" name="newProducer" id="newProducer" value="<%= producerInfo.producer_name%>" required />
+      </div>
+
+      <div class="form__input-wrapper form__input-wrapper--required">
+        <label for="newEmail">E-mail:</label>
+        <input type="email" name="newEmail" id="newEmail" value="<%= producerInfo.email%>" required />
+      </div>
+
+      <div class="form__input-wrapper form__input-wrapper--required">
+        <label for="newLocation">Location:</label>
+        <input type="text" name="newLocation" id="newLocation" value="<%= producerInfo.location %>" required />
+      </div>
 
       <input type="hidden" name="producerId" value="<%= producerInfo.producer_id%>">
 
 
-      <button type="submit">Save</button>
+      <button type="submit" class="form__button-add">Save</button>
     </form>
   </div>
 </body>
