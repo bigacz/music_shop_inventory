@@ -11,22 +11,25 @@
 
 <body>
   <%- include('../components/navbar.ejs') %>
-  <div>
+  <div class="wrapper">
     <h2>Category: <%= category.category %></h2>
-    <a href="/categories/<%=category.category_id%>/edit">Edit</a>
+
+    <a href="/categories/<%=category.category_id%>/edit">Edit category</a>
 
     <% if(items.length > 0) { %>
     <table>
       <thead>
         <tr>
-          <th>Model</th>
-          <th>Producer</th>
-          <th>Quantity</th>
+          <th class="table__header-number">No.</th>
+          <th class="table__header-generic">Model</th>
+          <th class="table__header-generic">Producer</th>
+          <th class="table__header-generic">Quantity</th>
         </tr>
       </thead>
       <tbody>
-        <% items.map((item) => { %>
+        <% items.map((item,index) => { %>
         <tr>
+          <td><%= index + 1 %></td>
           <td> <%= item.model %> </td>
           <td> <%= item.producer_name %> </td>
           <td> <%= item.quantity %> </td>
@@ -34,7 +37,6 @@
         <% }) %>
       </tbody>
     </table>
-    <span>Results: <%= items.length %> </span>
     <% } else { %>
     <p>No items in this category</p>
     <% } %>
