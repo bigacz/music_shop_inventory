@@ -12,16 +12,37 @@
 
 <body>
   <%- include('../components/navbar.ejs') %>
-  <h2>All Categories:</h2>
   <div>
-    <% categories.map((category) => { %>
-    <div>
-      <span> <a href="categories/<%= category.category_id %>"> <%= category.category %></a> </span>
-      <button data-category-id="<%= category.category_id%>">DELETE</button>
+    <h2>All Categories:</h2>
+    <table>
+      <thead>
+        <tr>
+          <th class="table__header-number">No.</th>
+          <th class="table__header-generic">Name</th>
+          <th class="table__header-delete">Delete</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody>
 
-      <a href="/categories/<%=category.category_id%>/edit">Edit</a>
-    </div>
-    <% }) %>
+        <% categories.map((category, index) => { %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td> <a href="categories/<%= category.category_id %>"> <%= category.category %></a> </td>
+          <td class="table__delete-cell">
+            <button data-category-id="<%= category.category_id%>">
+              <img src="/assets/delete.svg" alt="Delete">
+            </button>
+          </td>
+          <td class="table__edit-cell">
+            <a href="/categories/<%=category.category_id%>/edit">
+              <img src="/assets/cog.svg" alt="Edit">
+            </a>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
   </div>
 </body>
 
