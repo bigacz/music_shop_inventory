@@ -1,7 +1,7 @@
 .navbar {
   font-size: 1.05rem;
   text-decoration: none;
-  background-color: black;
+  background-color: rgb(32, 32, 32);
   display: grid;
   justify-content: left;
   grid-auto-flow: column;
@@ -10,8 +10,8 @@
 }
 
 .navbar > a {
-  padding: 0.5rem 0.5rem;
-  color: white;
+  padding: 0.7rem 0.7rem;
+  color: rgb(245, 245, 245);
 
   text-decoration: none;
 }

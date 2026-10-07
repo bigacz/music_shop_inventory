@@ -1,2 +1,6 @@
 @import url(/style/components/navbar.css);
 @import url(/style/main.css);
+
+.navbar > a:nth-child(1) {
+  color: rgb(179, 179, 179);
+}
