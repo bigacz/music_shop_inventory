@@ -7,6 +7,7 @@
   <title>All Items</title>
   <link rel="stylesheet" href="style/allItems.css">
   <script src="/scripts/item/allItems.js" defer></script>
+  <link rel="stylesheet" href="/style/item/allItems.css">
 
 </head>
 
@@ -17,26 +18,30 @@
     <table>
       <thead>
         <tr>
-          <th>Model</th>
-          <th>Producer</th>
-          <th>Category</th>
-          <th>Quantity</th>
+          <th class="table__header-number">No.</th>
+          <th class="table__header-generic">Model</th>
+          <th class="table__header-generic">Producer</th>
+          <th class="table__header-generic">Category</th>
+          <th class="table__header-quantity">Quantity</th>
+          <th class="table__header-delete">Delete</th>
+          <th>Edit</th>
         </tr>
       </thead>
       <tbody>
-        <% allItems.map((item) => { %>
+        <% allItems.map((item, index) => { %>
         <tr>
+          <td><%= index + 1 %></td>
           <td> <a href="/items/<%= item.item_id%>"><%= item.model %></a> </td>
           <td> <a href="/producers/<%= item.producer_id%>"><%= item.producer_name %></a> </td>
           <td> <a href="/categories/<%= item.category_id%>"><%= item.category %></a> </td>
           <td> <%= item.quantity %> </td>
-          <td>
+          <td class="table__delete-cell">
             <button data-item-id="<%=item.item_id%>">
-              DELETE
+              <img src="/assets/delete.svg" alt="Delete">
             </button>
           </td>
-          <td>
-            <button><a href="items/<%=item.item_id%>/edit">Edit</a></button>
+          <td class="table__edit-cell">
+            <a href="items/<%=item.item_id%>/edit"><img src="/assets/cog.svg" alt="Edit"></a>
           </td>
         </tr>
         <% }) %>

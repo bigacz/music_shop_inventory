@@ -1,0 +1,17 @@
+.navbar {
+  font-size: 1.05rem;
+  text-decoration: none;
+  background-color: black;
+  display: grid;
+  justify-content: left;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  justify-items: center;
+}
+
+.navbar > a {
+  padding: 0.5rem 0.5rem;
+  color: white;
+
+  text-decoration: none;
+}
