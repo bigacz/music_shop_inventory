@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title> Item: <%=item.model%> </title>
   <script src="/scripts/item/item.js" defer></script>
-  <link rel="stylesheet" href="/style/item/editItem.css">
+  <link rel="stylesheet" href="/style/item/item.css">
 
 
 </head>
@@ -14,13 +14,16 @@
 <body>
   <%- include('../components/navbar.ejs') %>
   <div>
+    <h2>Item:</h2>
     <table>
       <thead>
         <tr>
-          <th>Model</th>
-          <th>Producer</th>
-          <th>Category</th>
-          <th>Quantity</th>
+          <th class="table__header-generic">Model</th>
+          <th class="table__header-generic">Producer</th>
+          <th class="table__header-generic">Category</th>
+          <th class="table__header-quantity">Quantity</th>
+          <th class="table__header-delete">Delete</th>
+          <th>Edit</th>
         </tr>
       </thead>
       <tbody>
@@ -33,11 +36,13 @@
             <a href="/categories/<%= item.category_id%>"><%= item.category %></a>
           </td>
           <td><%= item.quantity %></td>
-          <td>
+          <td class="table__delete-cell">
             <button data-item-id="<%=item.item_id%>">
-              DELETE
+              <img src="/assets/delete.svg" alt="Delete">
             </button>
-            <button><a href=" ./<%=item.item_id%>/edit">Edit</a></button>
+          </td>
+          <td class="table__edit-cell">
+            <a href=" ./<%=item.item_id%>/edit"><img src="/assets/cog.svg" alt="Edit"></a>
           </td>
         </tr>
       </tbody>
